@@ -1,4 +1,5 @@
 const http = require("http");
+const fs = require("fs/promises");
 
 const JSONdata = JSON.stringify([
   -128610405,
@@ -21,13 +22,27 @@ const JSONdata = JSON.stringify([
   true,
   407392355.508039,
 ]);
+
+const HTMLresponse = (req, res) => {
+  fs.readFile(__dirname + "/index.html")
+    .then((response) => {
+      res.setHeader("Content-Type", "text/html");
+      res.writeHead(200);
+      res.end(response);
+    })
+    .catch((err) => {
+      res.writeHead(500);
+      res.end(err);
+    });
+};
+
 const JSONResponse = (req, res) => {
-  res.setHeader("Content-type", "application/json");
+  res.setHeader("Content-Type", "application/json");
   res.writeHead(200);
   res.end(JSONdata);
 };
 
-const server = http.createServer(JSONResponse);
+const server = http.createServer(HTMLresponse);
 
 let PORT = 8080;
 server.listen(PORT, () => {
