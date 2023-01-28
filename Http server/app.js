@@ -42,7 +42,24 @@ const JSONResponse = (req, res) => {
   res.end(JSONdata);
 };
 
-const server = http.createServer(HTMLresponse);
+const server = http.createServer((req, res) => {
+  if (req.url == "/json") {
+    res.setHeader("Content-Type", "application/json");
+    res.writeHead(200);
+    res.end(JSONdata);
+  } else if (req.url == "/web") {
+    fs.readFile(__dirname + "/index.html")
+      .then((response) => {
+        res.setHeader("Content-Type", "text/html");
+        res.writeHead(200);
+        res.end(response);
+      })
+      .catch((err) => {
+        res.writeHead(500);
+        res.end(err);
+      });
+  }
+});
 
 let PORT = 8080;
 server.listen(PORT, () => {
