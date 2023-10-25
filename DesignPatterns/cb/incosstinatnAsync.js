@@ -15,8 +15,8 @@ function ReadFile(fileName, cb) {
 
 function createFileReader(fileName) {
   const listeners = [];
-  ReadFile(fileName, (value) => {
-    listeners.forEach((listener) => listener(value));
+  ReadFile(fileName, (file) => {
+    listeners.forEach((listener) => listener(file));
   });
 
   return {
