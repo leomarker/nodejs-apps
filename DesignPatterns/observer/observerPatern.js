@@ -60,7 +60,21 @@ class Subscriber {
 
   update(newsLetter) {
     console.log(
-      `hey i am ${this.name} and i  have received the new news letter ${newsLetter} `
+      `hey i am ${this.name} and i  have received the new news letter of Date ${newsLetter.date} `
     );
   }
 }
+
+const NewsLetter1 = new NewsLetter();
+
+const Jhon = new Subscriber("jhon Doe");
+const leo = new Subscriber("Leo Marker");
+
+NewsLetter1.addSubscriber(Jhon);
+NewsLetter1.addSubscriber(leo);
+
+NewsLetter1.composeNewLetter(
+  "October 26 2023",
+  "The observer Pattern",
+  "Well there is not Much here"
+);
