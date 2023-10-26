@@ -1,7 +1,6 @@
 /* 
 1. Observable (subject) that is observed by other objects which will notify the observers that the state of the observable (subject) has changes 
 2. Observers this are objects that wait for a state with the observer to change and act on the new event(state change)
-
 */
 
 class NewsLetter {
@@ -32,7 +31,7 @@ class NewsLetter {
     }
 
     this.subscribers.splice(newsLetterSubscriber, 1);
-    console.log("ooh! we are sorry to see you go!!");
+    console.log(`ooh! we are sorry to see you go!! ${subscriber.name}`);
   }
 
   notify() {
@@ -75,6 +74,14 @@ NewsLetter1.addSubscriber(leo);
 
 NewsLetter1.composeNewLetter(
   "October 26 2023",
+  "The observer Pattern",
+  "Well there is not Much here"
+);
+
+NewsLetter1.removeSubscriber(Jhon);
+
+NewsLetter1.composeNewLetter(
+  "October 27 2023",
   "The observer Pattern",
   "Well there is not Much here"
 );
