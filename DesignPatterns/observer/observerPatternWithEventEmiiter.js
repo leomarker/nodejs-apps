@@ -41,3 +41,5 @@ store.on("newItem", (message) => {
 });
 
 store.sendNotifications();
+
+store.removeItem("TTy");
