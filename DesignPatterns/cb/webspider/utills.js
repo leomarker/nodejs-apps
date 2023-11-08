@@ -24,7 +24,3 @@ export function urlToFilename(url) {
 
   return filename;
 }
-
-urlToFilename(
-  "https://github.com/PacktPublishing/Node.js-Design-Patterns-Third-Edition/blob/master/04-asynchronous-control-flow-patterns-with-callbacks/01-web-spider/utils.js"
-);
