@@ -15,12 +15,10 @@ export function urlToFilename(url) {
     })
     .join("/");
 
-  const filename = path.join(parsedUrl.hostname, urlToPath);
+  let filename = path.join(parsedUrl.hostname, urlToPath);
   if (path.extname(filename).match(/htm/)) {
     filename += ".html";
   }
-
-  console.log(filename);
 
   return filename;
 }

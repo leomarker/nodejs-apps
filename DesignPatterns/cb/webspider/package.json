@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "slug": "^8.2.3"
+    "slug": "^8.2.3",
+    "superagent": "^8.1.2"
   }
 }
