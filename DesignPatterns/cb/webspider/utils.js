@@ -16,7 +16,7 @@ export function urlToFilename(url) {
     .join("/");
 
   let filename = path.join(parsedUrl.hostname, urlToPath);
-  if (path.extname(filename).match(/htm/)) {
+  if (!path.extname(filename).match(/htm/)) {
     filename += ".html";
   }
 

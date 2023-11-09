@@ -1,10 +1,12 @@
 import fs from "fs";
 import path from "path";
-import { urlToFilename } from "./utills.js";
+import { urlToFilename } from "./utils.js";
 import superAgent from "superagent";
 
 export const spider = (url, cb) => {
   const filename = urlToFilename(url);
+
+  console.log(filename, "jhjhkj", path.dirname(filename));
 
   fs.access(filename, (err) => {
     if (err && err.code === "ENOENT") {
@@ -13,7 +15,7 @@ export const spider = (url, cb) => {
         if (err) {
           cb(err);
         } else {
-          fs.mkdir(path.dirname(filename), (err) => {
+          fs.mkdir(path.dirname(filename), { recursive: true }, (err) => {
             if (err) {
               cb(err);
             } else {
