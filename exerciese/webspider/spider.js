@@ -18,17 +18,17 @@ const downloadFile = (url, filename, cb) => {
 
   superAgent.get(url).end((err, res) => {
     if (err) {
-      cb(err);
-    } else {
-      saveFile(filename, res.text, (err) => {
-        if (err) {
-          return cb(err);
-        }
-        console.log(`DownLoaded The File ${filename}`);
-
-        cb(null, filename, url);
-      });
+      return cb(err);
     }
+
+    saveFile(filename, res.text, (err) => {
+      if (err) {
+        return cb(err);
+      }
+      console.log(`DownLoaded and saved The File ${filename}`);
+
+      cb(null, filename, url);
+    });
   });
 };
 
