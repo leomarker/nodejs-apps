@@ -3,35 +3,49 @@ import path from "path";
 import { urlToFilename } from "./utils.js";
 import superAgent from "superagent";
 
+const saveFile = (filename, contents, cb) => {
+  fs.mkdir(path.dirname(filename), { recursive: true }, (err) => {
+    if (err) {
+      return cb(err);
+    } else {
+      fs.writeFile(filename, contents, cb);
+    }
+  });
+};
+
+const downloadFile = (url, filename, cb) => {
+  console.log(`Downloading ${url} into ${filename}`);
+
+  superAgent.get(url).end((err, res) => {
+    if (err) {
+      cb(err);
+    } else {
+      saveFile(filename, res.text, (err) => {
+        if (err) {
+          return cb(err);
+        }
+        console.log(`DownLoaded The File ${filename}`);
+
+        cb(null, filename, url);
+      });
+    }
+  });
+};
+
 export const spider = (url, cb) => {
   const filename = urlToFilename(url);
 
-  console.log(filename, "jhjhkj", path.dirname(filename));
-
   fs.access(filename, (err) => {
-    if (err && err.code === "ENOENT") {
-      console.log(`Downloading ${url} into ${filename}`);
-      superAgent.get(url).end((err, res) => {
-        if (err) {
-          cb(err);
-        } else {
-          fs.mkdir(path.dirname(filename), { recursive: true }, (err) => {
-            if (err) {
-              cb(err);
-            } else {
-              fs.writeFile(filename, res.text, (err) => {
-                if (err) {
-                  cb(err);
-                } else {
-                  cb(null, filename, url);
-                }
-              });
-            }
-          });
-        }
-      });
-    } else {
+    if (!err && !err.code === "ENOENT") {
       cb(null, filename, url);
     }
+  });
+
+  downloadFile(url, filename, (err) => {
+    if (err) {
+      return cb(err);
+    }
+
+    cb(null, filename, url);
   });
 };
