@@ -33,3 +33,15 @@ export const spider = (url, cb) => {
     }
   });
 };
+
+/* what is going on here ? very confusing  
+
+   - we are creating a nested callback which isn't easy to understand and fix
+   - the function is doing a lots of things(single responsibility a function should do one thing and do it well)
+   
+  how to fix it 
+   - we return the function as early as possible avoiding handling unwanted logic(notice the if else block) 
+   - instead of using callback use named functions and  
+   - share responsibility among other functions or split the code
+
+*/
