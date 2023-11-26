@@ -78,6 +78,6 @@ export const spider = (url, nesting, cb) => {
       });
     }
 
-    spider(url, fileContent, nesting, cb);
+    spiderLinks(url, fileContent, nesting, cb);
   });
 };
