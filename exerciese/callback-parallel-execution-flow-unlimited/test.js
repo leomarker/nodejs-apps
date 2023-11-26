@@ -9,7 +9,7 @@ function makeRandomTasks(name) {
   };
 }
 
-tasks = [
+const tasks = [
   makeRandomTasks("Task 1"),
   makeRandomTasks("Task 2"),
   makeRandomTasks("Task 3"),
