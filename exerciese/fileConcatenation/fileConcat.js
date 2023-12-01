@@ -1,29 +1,32 @@
 import fs from "fs";
 
-export function fileConcatenation(dist, cb, ...notes) {
+export const fileConcatenation = (dist, cb, ...notes) => {
   let index = 0;
-  next(notes[0], dist, (err) => {
+
+  console.log(notes[index]);
+  next(notes[index], dist, (err) => {
     if (err) {
       console.log(err);
-      process.exit(1);
+      cb(err);
     }
 
     if (index === notes.length) {
-      console.log("Nice ALL your notes have been moved to one file");
-      process.exit(1);
+      cb(dist);
     }
 
     next(notes[++index], dist);
   });
-}
+};
 
 function next(file, dist, cb) {
   readFileContent(file, (err, data) => {
     if (err) {
-      console.log();
+      console.log(err);
     }
 
-    writeFileContentToDist(dist, (err) => {
+    console.log(data);
+
+    writeFileContentToDist(dist, data, (err) => {
       if (err) {
         console.log(err);
         cb(err);
@@ -39,15 +42,16 @@ function readFileContent(file, cb) {
     if (err) {
       console.log(err);
     }
+    console.log("YOUR not has be read");
     cb(data);
   });
 }
 
-function writeFileContentToDist(dist, cb) {
+function writeFileContentToDist(dist, data, cb) {
   fs.writeFile(dist, data, "utf-8", (err) => {
     if (err) {
       console.log(err);
-      return;
+      cb(err);
     }
 
     console.log(`New not has been written to ${dist}`);
