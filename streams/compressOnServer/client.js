@@ -1,8 +1,7 @@
 import { request } from "http";
-import { createGunzip } from "zlib";
+import { createGzip } from "zlib";
 import { createReadStream } from "fs";
 import { basename } from "path";
-import { hostname } from "os";
 
 const filename = process.argv[2];
 const serverHost = process.argv[3];
@@ -24,6 +23,6 @@ const req = request(httpRequestOptions, (res) =>
 );
 
 createReadStream(filename)
-  .pipe(createGunzip())
+  .pipe(createGzip())
   .pipe(req)
   .on("finish", () => console.log("File sent successful "));
