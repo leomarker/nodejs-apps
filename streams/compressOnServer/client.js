@@ -19,7 +19,7 @@ const httpRequestOptions = {
 };
 
 const req = request(httpRequestOptions, (res) =>
-  console.log(`Server Response ${res}`)
+  console.log(`Server Response ${res.statusCode}`)
 );
 
 createReadStream(filename)
